@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,22 @@ import {
 
 export default function App() {
   const backgroundImage = { uri: "https://wallpapercave.com/wp/wp9837865.png" };
+
+  useEffect(() => {
+    const fetchKanyeQuote = async () => {
+      try {
+        const res = await fetch("https://api.kanye.rest/");
+        const data = await res.json();
+
+        // Confirm data is received from API
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchKanyeQuote();
+  }, []);
 
   return (
     <View style={styles.container}>
