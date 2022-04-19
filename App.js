@@ -7,26 +7,12 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
+import useRandomQuote from "./useRandomQuote";
 
 export default function App() {
   const backgroundImage = { uri: "https://wallpapercave.com/wp/wp9837865.png" };
 
-  const [quote, setQuote] = useState(""); // useState structure
-
-  useEffect(() => {
-    const fetchKanyeQuote = async () => {
-      try {
-        const res = await fetch("https://api.kanye.rest/");
-        const data = await res.json();
-
-        setQuote(data.quote); // setter function to update initial state val
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchKanyeQuote();
-  }, []);
+  const kanyeQuote = useRandomQuote();
 
   return (
     <View style={styles.container}>
@@ -42,12 +28,11 @@ export default function App() {
             width: "100%",
           }}
         >
-          <Text style={styles.quoteText}>"{quote}"</Text>
+          <Text style={styles.quoteText}>"{kanyeQuote}"</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={() => {}}>
           <Text style={styles.buttonText}>More Kanye</Text>
         </TouchableOpacity>
-
         <StatusBar style="auto" />
       </ImageBackground>
     </View>
